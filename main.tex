@@ -1,0 +1,291 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+% This template was modified by Edouard Klein (http://rdklein.fr)
+% to be used for technical report edition
+% while working for the Gendarmerie Nationale
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[hyphens]{url}
+\usepackage{hyperref} 
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkClass\ (\hmwkShortTitle\ \hmwkClassTime)} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Python} % Load Python syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Python, % Use Python in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a python script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\pythonscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continue sur la page suivante\ldots}\nobreak
+\nobreak\extramarks{#1 (suite)}{#1 t\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (suite)}{#1 continue sur la page suivante\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Rapport d'analyse} % Assignment title
+\newcommand{\hmwkDueDate}{\today} % Due date
+\newcommand{\hmwkClass}{PJGN/SCRC/C3N} % Unité
+\newcommand{\hmwkClassTime}{} % Vide
+\newcommand{\hmwkClassInstructor}{Disque dur infecté par un méchant virus} % Objet du rapport
+\newcommand{\hmwkShortTitle}{Méchant Virus} % Objet du rapport (version courte)
+\newcommand{\hmwkAuthorName}{Inspecteur Gadget} % Vore nom
+\newcommand{\hmwkCommanditaire}{Général Bob Baroud, officier de police judiciaire en résidence aux Kerguelen} % Nom de la personne requerante
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\centering{\includegraphics[width=.3\textwidth]{GN_logo.jpg}}\\
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	Saisine, Mission, Contexte
+% Rappel de la saisine
+% Qualification des infractions
+% Contexte dans le cadre d'un PV
+% Prestation de serment
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}[Saisine, Mission, Contexte]
+  \subsection*{Référence}
+  Procès-verbal de Réquisition à personne qualifiée N$^o$ XXXXX/XXXXX/201X en date du 30 Octobre 201X, du \hmwkCommanditaire.
+  \subsection*{Mission}
+  Nous soussignés Inspecteur Gadget, etc.
+
+  Désigné pour effectuer l'examen technique par le \hmwkCommanditaire, en sa réquisition du 30 Octobre 201X, comportant les missions suivantes:
+  \begin{itemize}
+  \item Procéder à l'examen du disque dure remis sous scellés dans le but de rechercher tout virus, etc.
+  \end{itemize}
+
+  Serment préalablement prêté de bien et fidèlement remplir notre mission en notre honneur et conscience, rapportons les opérations effectuées.
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	Prise en compte du scellé
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}[Prise en compte du scellé]
+
+
+
+Le tant et tant à 11 h 06 prenons en compte le scellé N$^o$X, pièce N$^o$XX remis par le \hmwkCommanditaire (\autoref{fig:scelle}). etc.
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.75\columnwidth]{scelle.jpg} % Image CC BY SA https://commons.wikimedia.org/wiki/File:CG_NY_scell%C3%A9.jpg?uselang=fr 
+    \end{center}
+    \caption{Le scellé}
+    \label{fig:scelle}
+  \end{figure}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	Protocole d'investifations
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}[Protocole d'investigations]
+  \subsection*{Détection de l'infection}
+
+  Bien souvent, on a besoin d'intégrer du code dans le rapport, on peut faire ça comme çà :
+
+  \pythonscript{Coucou}{Hello World}
+  Et on peut afficher la réponse comme ceci :
+\begin{lstlisting}[breaklines=true]
+Coucou de la part du C3N !
+\end{lstlisting}
+
+\subsection*{Les subsections peuvent structurer les sections}
+\lipsum[1]
+
+
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+%	Résultat des investigations
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}[Résultat des investigations]
+  \lipsum[2]
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	Discussion
+% Explications en terms simples, pour le non spécialiste, de ce que signifient les résultats
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}[Discussion]
+  \lipsum[2]
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+%	Conclusion
+% Réponse aux questions posées par le requerant
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}[Conclusion]
+\lipsum[3]
+
+Rapport Clos aux Kerguelen le \today.
+\end{homeworkProblem}
+
+
+\end{document}
